@@ -921,51 +921,157 @@ void hex_to_bin()
 }
 //fonction pour les operations mathematiques
 //fonction carre magique
+void remplir_tab(int* p,int* tab,int l,int c)
+{
+    int k=0;
+    for(int i=0;i<l;i++)
+    {
+        for(int j=0;j<c;j++)
+        {
+            p[k]=tab[k];
+            k++;
+        }
+    }
+    k=0;
+    for(int i=0;i<l;i++)
+    {
+        for(int j=0;j<c;j++)
+        {
+            cout<<tab[k]<<"|";
+            k++;
+        }
+        cout<<endl;
+    }
+}
+
+void ajout_valeur(int& val1,int& val2,int& val3,int& val4,int i,int j,int k,int L,int x,int n)
+{
+    if( (i==(L*2)-2 && j==n/2) || (i==(L*2)&& j!=n/2) )//cas de U
+    {
+        val1=k+3;
+        val2=k+2;
+        val3=k+1;
+        val4=k;
+    }
+    else if(x-1!=0 && i>=(L*2)+2)//cas de X
+    {
+        val1=k+3;
+        val2=k+1;
+        val3=k+2;
+        val4=k;
+    }
+    else//cas de L
+    {
+        val1=k;
+        val2=k+2;
+        val3=k+1;
+        val4=k+3;
+    }
+}
+
+void simple_magic_square(int *p,int n)
+{
+    int tab[n][n],i,j,k;
+    int x=((n/2)-1)/2, L=x+1;
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            tab[i][j]=0;
+        }
+    }
+    i=0;
+    j=n/2;
+    ajout_valeur(tab[i][j],tab[i+1][j],tab[i+1][j-1],tab[i][j-1],i,j,1,L,x,n);
+    for(k=5;k<=n*n;k+=4)
+    {
+        i-=2;
+        j+=2;
+        if(i>=0 && j<n && tab[i][j]==0)//case ok
+        {
+             ajout_valeur(tab[i][j],tab[i+1][j],tab[i+1][j-1],tab[i][j-1],i,j,k,L,x,n);
+        }
+        else if(i>=0 && j<n && tab[i][j]!=0)//case occupe
+        {
+            i+=4;
+            j-=2;
+            ajout_valeur(tab[i][j],tab[i+1][j],tab[i+1][j-1],tab[i][j-1],i,j,k,L,x,n);
+        }
+        else if(i<0 && j<n)//debordement en haut
+        {
+            i=n-2;
+            ajout_valeur(tab[i][j],tab[i+1][j],tab[i+1][j-1],tab[i][j-1],i,j,k,L,x,n);
+        }
+        else if(i>=0 && j>=n)//debordement a droite
+        {
+            j=1;
+            ajout_valeur(tab[i][j],tab[i+1][j],tab[i+1][j-1],tab[i][j-1],i,j,k,L,x,n);
+        }
+        else
+        {
+            i+=4;
+            j-=2;
+            ajout_valeur(tab[i][j],tab[i+1][j],tab[i+1][j-1],tab[i][j-1],i,j,k,L,x,n);
+        }
+    }
+    remplir_tab(p,(int*)tab,n,n);
+}
 void magic_square()
 {
     clear_console();
-    cout<<"==================CONSTRUCTION DE CARRE MAGIQUE==================="<<endl;
-    cout<<"||           Choissisez quel carre magique a construire         ||"<<endl;
-    cout<<"||       1... carre magique simplement pair                     ||"<<endl;
-    cout<<"||       2... carre magique doublement  pair                    ||"<<endl;
-    cout<<"=================================================================="<<endl<<endl;
+    cout<<"==========================CONSTRUCTION DE CARRE MAGIQUE============================="<<endl;
+    cout<<"||                  Choissisez quel carre magique a construire                    ||"<<endl;
+    cout<<"||pour un carre magique simplement pair, un nombre pair qui est divisible par 4   ||"<<endl;
+    cout<<"||pour un carre magique simplement pair, entre un nombre pair non divisible par 4 ||"<<endl;
+    cout<<"||                Rappelez vous que vous devez entre un nombre pair               ||"<<endl;
+    cout<<"===================================================================================="<<endl<<endl;
     int N,k,i,j;
     cout<<"Veuillez entrer le nombre de ligne ou de colonne que votre carre doit avoir"<<endl;
     cin>>N;
     if (N % 2 == 0)
     {
-        int tab[N][N];
-        //initialisation de k a 1 car on commence a compter a 1
-        k=1;
-        // on a utilise l'incrementation pour remplir le tableau ensuite on a utilise une formule pour permuter toute les valeur des case qui vdoivent etre changer selon la technique de construction
-        for(i=0;i<N;i++)
+        if (N%4 != 0)
         {
-            for(j=0;j<N;j++)
-            {
-                tab[i][j]=k;
-                k++;
-                //test utilise pour voir comment est ce que le tableau se remplissent
-                //cout<<"["<<tab[i][j]<<"]";
-            }
-            //fcout<<endl;
+            //code pour la construction d'une carre magique simplement pair c'est a dire nbre de ligne et colonne divisible par 4
+            int k [N*N];
+            simple_magic_square(k,N);
         }
-        cout<<"Le carre magique correspondant est: "<<endl;
-        for(i=0;i<N;i++)
+        else
         {
-            for(j=0;j<N;j++)
-            {
-                bool r1=(i-1)%4==0 || i%4==0;
-                bool r2=(j-1)%4==0 || j%4==0;
-
-                if((r1 && !r2) || (!r1 && r2))
+                int tab[N][N];
+                //initialisation de k a 1 car on commence a compter a 1
+                k=1;
+                // on a utilise l'incrementation pour remplir le tableau ensuite on a utilise une formule pour permuter toute les valeur des case qui vdoivent etre changer selon la technique de construction
+                for(i=0;i<N;i++)
                 {
-                    tab[i][j]=(N*N)-tab[i][j];
+                    for(j=0;j<N;j++)
+                    {
+                        tab[i][j]=k;
+                        k++;
+                        //test utilise pour voir comment est ce que le tableau se remplissent
+                        cout<<"["<<tab[i][j]<<"]";
+                    }
+                    cout<<endl;
                 }
-                cout<<tab[i][j]<<"|";
-            }
-            cout<<endl;
+                cout<<"Le carre magique correspondant est: "<<endl;
+                for(i=0;i<N;i++)
+                {
+                    for(j=0;j<N;j++)
+                    {
+                        bool r1=(i+1)%4==0 || i%4==0;
+                        bool r2=(j+1)%4==0 || j%4==0;
+
+                        if((r1 && !r2) || (!r1 && r2))
+                        {
+                            tab[i][j]=((N*N)+1)-tab[i][j];
+                        }
+                        cout<<tab[i][j]<<"|";
+                    }
+                    cout<<endl;
+                }
         }
     }
+
     else
     {
         cout<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
@@ -1278,7 +1384,8 @@ void display_data()
         cin>>print;
         if( int (print)==112 || int(print)==80)
         {
-            system("print backup.txt");//commande system utilisé pour imprimer un fichier
+            string f = ("notepad.exe /p backup.txt");
+            system(f.c_str());;//commande system utilisé pour imprimer un fichier
         }
     }
     else
@@ -1332,7 +1439,7 @@ void class_data()
         }
 
 
-        for (int i = 0; i<= nb_line; i++)//stockons les valeur extrait du fichier dans un tableau
+        for (int i = 0; i< nb_line; i++)//stockons les valeur extrait du fichier dans un tableau
         {
             cout<<backup[i]<<endl;
         }
@@ -1340,11 +1447,10 @@ void class_data()
 
         cout<<"taper p pour imprimer le fichier"<<endl;
         cin>>print;
-        if( int (print)==49)
+        if( int (print)==112 || int(print)==80)
         {
-            fichier.open("backup.txt",ios::in);
-            system("print backup.txt");//commande system utilisé pour imprimer un fichier
-            fichier.close();
+            string f = ("notepad.exe /p backup.txt");
+            system(f.c_str());;//commande system utilisé pour imprimer un fichier
         }
     }
     else
