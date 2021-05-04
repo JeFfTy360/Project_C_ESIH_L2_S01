@@ -1,16 +1,1 @@
-Francois Mondesir	Jephte'	Bonrepos	lok785
-Francois Mondesir	Jephte	Bonrepos	745
-Darshyla-Ben 	Alexis	Carrefour	965
-skjd  w	slvkv  	sf vj	ksdhb
-df jss	 qfkw f 	kj g	kfkjsnf'
-skjdk	sdkf	ksdj	sdkn
-jnd	sdkn	dsfkjkn	ksdjfn
-kdfjng	fdgn	dfgjn	dkfg
-			
-	;kb	fg	fg
-kwjef'w	wkefb	wljbf	sk
-kjf'	wkefjb	wkjbf	skdfn
-sjdfnjknfd	sjdkfnks	sdkjfn	ksd
-jsndfjsdnf	sdjfnkj	sdjfk	skdjfn
-kjgnd;g	dfkgn	dfk	fgnj
-dnfng	fgnkj	dflng	fgkj
+NOM	PRENOM	ADRESSE	CODE

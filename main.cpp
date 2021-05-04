@@ -1028,6 +1028,21 @@ void magic_square()
     int N,k,i,j;
     cout<<"Veuillez entrer le nombre de ligne ou de colonne que votre carre doit avoir"<<endl;
     cin>>N;
+    while (N%2 != 0 || N <= 2)
+    {
+        if (N==2)
+        {
+            cout<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+            cout<<"||erreur la valeur entre est trop petit, ressayer, reessayer svp||"<<endl;
+            cout<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+            cin>>N;
+        }
+        cout<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+        cout<<"||erreur la valeur entre n'est pas pair, ressayer, reessayer svp||"<<endl;
+        cout<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+        cin>>N;
+    }
+    //verification s'il s'agit d'une valeur divisible par 4 ou par 2 pour savoir quel methode de construction utilise simplement pair ou doublement pair
     if (N % 2 == 0)
     {
         if (N%4 != 0)
@@ -1049,9 +1064,9 @@ void magic_square()
                         tab[i][j]=k;
                         k++;
                         //test utilise pour voir comment est ce que le tableau se remplissent
-                        cout<<"["<<tab[i][j]<<"]";
+                       // cout<<"["<<tab[i][j]<<"]";
                     }
-                    cout<<endl;
+                    //cout<<endl;
                 }
                 cout<<"Le carre magique correspondant est: "<<endl;
                 for(i=0;i<N;i++)
@@ -1256,7 +1271,7 @@ void trans_mat()
         }
         cout<<endl;
     }
-    cout<<"la transposée du matrice est: "<<endl;
+    cout<<"la transposee du matrice est: "<<endl;
     for (int i = 0; i<c; i++)
     {
         cout<<"|";
@@ -1374,7 +1389,7 @@ void display_data()
     }
     fichier.close();
     fichier.open("backup.txt",ios::in);
-    if(data>0)
+    if(data>1)
     {
         while(getline(fichier,line))
         {
@@ -1407,7 +1422,7 @@ void class_data()
         nb_line++;
     }
     fichier.close();
-    if(nb_line>0)
+    if(nb_line>1)
     {
         fichier.open("backup.txt",ios::in);
         string backup[nb_line];
@@ -1423,6 +1438,7 @@ void class_data()
         }
         fichier.close();
         //trie du tableau par ordre alphabetique
+        backup[0]=" ";
         string temp;
         for (int p = 0; p<nb_line;p++)
         {
@@ -1438,13 +1454,11 @@ void class_data()
                 //cout<<"m deyo";
         }
 
-
-        for (int i = 0; i< nb_line; i++)//stockons les valeur extrait du fichier dans un tableau
+        cout<<"NOM"<<"\t"<<"PRENOM"<<"\t"<<"ADRESSE"<<"\t"<<"CODE"<<endl;
+        for (int i = 0; i<= nb_line; i++)//stockons les valeur extrait du fichier dans un tableau
         {
             cout<<backup[i]<<endl;
         }
-
-
         cout<<"taper p pour imprimer le fichier"<<endl;
         cin>>print;
         if( int (print)==112 || int(print)==80)
