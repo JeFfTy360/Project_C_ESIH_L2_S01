@@ -1391,7 +1391,6 @@ void display_data()
     fichier.open("backup.txt",ios::in);
     if(data>1)
     {
-        cout<<"NOM"<<"\t"<<"PRENOM"<<"\t"<<"ADRESSE"<<"\t"<<"CODE"<<endl;
         while(getline(fichier,line))
         {
             cout<<line<<endl;
@@ -1439,6 +1438,7 @@ void class_data()
         }
         fichier.close();
         //trie du tableau par ordre alphabetique
+        backup[0]=" ";
         string temp;
         for (int p = 0; p<nb_line;p++)
         {
