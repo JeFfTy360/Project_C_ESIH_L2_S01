@@ -1438,7 +1438,6 @@ void class_data()
         }
         fichier.close();
         //trie du tableau par ordre alphabetique
-        backup[0]=" ";
         string temp;
         for (int p = 0; p<nb_line;p++)
         {
@@ -1464,7 +1463,7 @@ void class_data()
         if( int (print)==112 || int(print)==80)
         {
             string f = ("notepad.exe /p backup.txt");
-            system(f.c_str());;//commande system utilisé pour imprimer un fichier
+            system(f.c_str());//commande system utilisé pour imprimer un fichier
         }
     }
     else
